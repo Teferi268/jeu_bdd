@@ -19,6 +19,7 @@ Décomposition :
             -Demander si il veut en changer
     -Lancement des manches
         BOUCLE
+        -Choix du monstre aleatoire parmis la collection
         -Message pour montrer quel monstre on affronte
         -Affrontement de l'equipe et du montre
             -Choix random pour savoir qui commance
@@ -27,6 +28,7 @@ Décomposition :
                 -Calcul avec la defense du monstre
                 -Verification pour savoir si il est mort
                     -Si oui
+                        -Incrémentation du nombre de vague
                         -prochaine manche
                     -Si non
                         -on continue
@@ -39,10 +41,7 @@ Décomposition :
                     -Si non 
                         -on continue
         BOUCLE
-    -Message de fin avec le nombre de manche vaincu + contre quel montre on est mort
--Fin du jeu
-            
+    -Message de fin avec le nombre de vague vaincu + contre quel montre on est mort
+-Fin du jeu"""
 
-
-
-"""
+import random
