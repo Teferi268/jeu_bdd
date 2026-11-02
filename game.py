@@ -44,4 +44,28 @@ Décomposition :
     -Message de fin avec le nombre de vague vaincu + contre quel montre on est mort
 -Fin du jeu"""
 
-import random
+import os
+from pymongo import MongoClient
+from db_init import set_up_db
+from utils import lobby_message, choice_heroe_message, charger_heroes_db, charger_monstres_db
+
+
+def ask_pseudo():
+    username = input("Veuillez chosir votre pseudo pour cette partie...")
+    if username.isalpha() == False or len(username) > 12:
+        print("Pseudo incorrecte : lettre uniquement, 12 caractères max.")
+        return ask_pseudo()
+    return username
+
+def show_heroe_list(heroes):
+    for heroe in heroes:
+        print(f"{heroe}\n")
+
+def main_menu():
+    heroes = charger_heroes_db(collection_heroes)
+    monstres = charger_monstres_db(collection_monstres)
+    set_up_db()
+    lobby_message()
+    pseudo = ask_pseudo()
+    choice_heroe_message(pseudo)
+    show_heroe_list(heroes)
