@@ -20,7 +20,7 @@ heroes = [
     {"nom": "Chasseur", "ATK": 16, "DEF": 11, "PV": 100},
 ]
 
-monstres = [
+monsters = [
     {"nom": "Gobelin", "ATK": 10, "DEF": 5, "PV": 50},
     {"nom": "Orc", "ATK": 20, "DEF": 8, "PV": 120},
     {"nom": "Dragon", "ATK": 35, "DEF": 20, "PV": 300},
@@ -34,9 +34,9 @@ monstres = [
 ]
 
 
-def initialiser_db():
+def set_up_db():
     if collection_heroes.count_documents({}) == 0:
         collection_heroes.insert_many(heroes)
 
     if collection_monster.count_documents({}) == 0:
-        collection_monster.insert_many(monstres)
+        collection_monster.insert_many(monsters)
