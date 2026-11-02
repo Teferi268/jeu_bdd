@@ -7,6 +7,13 @@ def choice_heroe_message(pseudo):
     print("Vous allez devoir choisir 3 heros parmis cette liste")
 
 
+def choose_number(message,min, max):
+	choix = input(message)
+	if choix.isdigit() == False or choix < min or choix > max:
+		choose_number(message,min, max)
+	return choix
+	
+
 def charger_heroes_db(collection_heroes):
 	heroes = []
 	for doc in collection_heroes.find({}, {"_id": 0}):

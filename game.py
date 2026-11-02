@@ -46,11 +46,12 @@ Décomposition :
 
 import os
 from pymongo import MongoClient
-from db_init import set_up_db
-from utils import lobby_message, choice_heroe_message, charger_heroes_db, charger_monstres_db
+from db_init import *
+from utils import *
 
 
 def ask_pseudo():
+    #Permet de demander le pseudo et de le verifier 
     username = input("Veuillez chosir votre pseudo pour cette partie...")
     if username.isalpha() == False or len(username) > 12:
         print("Pseudo incorrecte : lettre uniquement, 12 caractères max.")
@@ -58,14 +59,33 @@ def ask_pseudo():
     return username
 
 def show_heroe_list(heroes):
+    #affiche la liste depuis un dictionaire
     for heroe in heroes:
         print(f"{heroe}\n")
 
+def choose_heroe(heroes):
+    #Gère le choix des personage 
+    choix = choose_number("Veuillez taper à la suite les nombre a vos 3 heroes...",1,len(heroes))
+    team = []
+    while len(team) < 3:
+        team.append(heroes[choix])
+        choix = choose_number("Veuillez taper à la suite les nombre a vos 3 heroes...",1,len(heroes))
+
+    return team
+def show_team(team, heroes):
+    print("Votre équipe est composée de :")
+    for nom in team:
+        for hero in heroes:
+            if nom in hero:
+                print(f"- {hero}")
+                break
 def main_menu():
     heroes = charger_heroes_db(collection_heroes)
-    monstres = charger_monstres_db(collection_monstres)
+    monsters = charger_monstres_db(collection_monster)
     set_up_db()
     lobby_message()
     pseudo = ask_pseudo()
     choice_heroe_message(pseudo)
     show_heroe_list(heroes)
+    team = choose_heroe(heroes)
+    show_team(team, heroes)
