@@ -65,26 +65,37 @@ def show_heroe_list(heroes):
 
 def choose_heroe(heroes):
     #Gère le choix des personage 
-    choix = 0
+    choice = 0
     team = []
+    counter = 1 #Permet l'affichage dinamyque dans la demande de l'équipe
     while len(team) < 3:
         #Pour s'arreter à 3 heroe dans l'équipe 
-        choix = choose_number("Veuillez taper à la suite les nombre a vos 3 heroes...",1,len(heroes))
-        team.append(heroes[choix])
-        
-
+        choice = choose_number(f"Veuillez taper le numero de votre heroe numero {counter} : ",1,len(heroes))
+        team.append(heroes[choice])
+        counter += 1
     return team
 def show_team(team):
+    #Permet d'afficher l'équipe de joueur
     print("Votre équipe est composée de :")
     for hero in team:
         print(f"- {hero}")
+
+def final_choice_team():
+    choix = input("1- Valider l'équipe 2- Changer d'équipe")
+    if choix == 2:
+        return True
+    elif choix == 1:  
+        return False
 def main_menu():
     heroes = charger_heroes_db(collection_heroes)
     monsters = charger_monstres_db(collection_monster)
+    valid_team = False
     set_up_db()
     lobby_message()
     pseudo = ask_pseudo()
     choice_heroe_message(pseudo)
-    show_heroe_list(heroes)
-    team = choose_heroe(heroes)
-    show_team(team)
+    while valid_team == False:
+        show_heroe_list(heroes)
+        team = choose_heroe(heroes)
+        show_team(team)
+        valid_team = final_choice_team()
