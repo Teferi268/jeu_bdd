@@ -1,3 +1,6 @@
+import os
+def clear_console():
+	os.system('cls' if os.name == 'nt' else 'clear')
 def lobby_message():
     print("Bienvenue dans le jeu")
     print("Le jeu ce déroule tour par tout et fais affronter votre équipe contre des monstres")
@@ -16,11 +19,15 @@ def affichage_spawn_monster(monster):
 
 def affichage_attack_team(team):
 	for heroe in team:
-		print(f"Le {heroe["nom"]} attaque le monstre en infligeant {heroe["atk"]}")
+		print(f"Le {heroe['nom']} attaque le monstre en infligeant {heroe['ATK']}")
+
 def affichage_attack_monster(monster):
-	print(f"Le monstre inflige point {monster["atk"]} de degats à chaque enenemie")
+	print(f"Le monstre inflige {monster['ATK']} points de degats à chaque enenemie")
 def affichage_end_message(round):
 	print(f"Vous avez atteint le round {round}")
+def affichage_stat_team(team):
+	for heroe in team:
+		print(f"Le {heroe['nom']} n'a plusq que {round(heroe['PV'])} point de vie.")
 def show_score():
 	return
 def choose_number(message,min, max):

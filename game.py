@@ -49,6 +49,7 @@ from pymongo import MongoClient
 from db_init import *
 from utils import *
 from random import *
+import time
 
 
 def ask_pseudo():
@@ -112,10 +113,16 @@ def start_battle(team):
     #Round du combat
     round = 0
     while True:
+        clear_console()
         monster = choose_monster(monsters)
         if team_alive(is_alive_team(team)):
-            battle(team, monster)
+            affichage_attack_monster(monster)
+            attack_monster(monster,team)
+            affichage_stat_team(team)
+            affichage_attack_team(team)
+            attack_team(team, monster)
             round += 1
+            time.sleep(2)
         else :
             break
     affichage_end_message(round)
@@ -130,10 +137,7 @@ def team_alive(team):
     if not team:
         return False
     return True
-def battle(team, monster):
-    #bataille entre l'équipe et le monstre
-    attack_monster(monster,team)
-    attack_team(team, monster)
+    
 
 def attack_monster(monster,team):
     #Fais en sorte que le monstre attaque les heroes de l'équipe
