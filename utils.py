@@ -12,7 +12,15 @@ def choose_number(message,min, max):
 	if choix.isdigit() == False or int(choix) < min or int(choix) > max:
 		choose_number(message,min, max)
 	return int(choix)
-	
+def message_error_username():
+	print("Pseudo incorrecte : lettre uniquement, 12 caractères max.")
+
+def is_username_valide(username):
+	if username.isalpha() == False or len(username) > 12:
+		message_error_username()
+		return False
+	return True
+
 
 def charger_heroes_db(collection_heroes):
 	heroes = []

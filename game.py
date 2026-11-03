@@ -53,8 +53,7 @@ from utils import *
 def ask_pseudo():
     #Permet de demander le pseudo et de le verifier 
     username = input("Veuillez chosir votre pseudo pour cette partie...")
-    if username.isalpha() == False or len(username) > 12:
-        print("Pseudo incorrecte : lettre uniquement, 12 caractères max.")
+    if is_username_valide():
         return ask_pseudo()
     return username
 
