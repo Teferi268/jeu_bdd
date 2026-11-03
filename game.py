@@ -103,15 +103,16 @@ def game_start(pseudo, heroes):
         team = choose_heroe(heroes)
         show_team(team)
         valid_team = final_choice_team()
-        start_battle(valid_team)
+    start_battle(team)
 
 
 def start_battle(team):
-    monster = choose_monster()
-    battle(team, monster)
+    monster = choose_monster(monsters)
+    battle(team, monsters)
 
 def choose_monster(monster):
     monster = choice(monster)
+    affichage_spawn_monster(monster)
 
 def battle(team, monster):
     attack_monster(monster,team)
@@ -136,7 +137,7 @@ def get_monster_atk(monster):
 def take_damage_team(team, damage):
     team = is_alive_team(team)
     for hero in team:
-        hero["PV"] - damage // is_alive_team(team) 
+        hero["PV"] - damage / len(is_alive_team(team)) 
 def is_alive_team(team):
     team_alive = []
     for heroe in team:
@@ -144,7 +145,7 @@ def is_alive_team(team):
             team_alive.append(heroe)
     return team_alive
 def take_damage_monster(monster, damage):
-    monster["PV"] - damage
+    monster[0]["PV"] - damage
     
 
 def start_choice(choix, heroes):

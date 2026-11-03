@@ -11,6 +11,8 @@ def choice_menu():
 	for option in choix:
 		print(option)
 	return input("...")
+def affichage_spawn_monster(monster):
+	print(f"Vous allez affronter un {monster[0]["nom"]}")
 def show_score():
 	return
 def choose_number(message,min, max):
