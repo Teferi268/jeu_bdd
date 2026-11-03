@@ -8,10 +8,10 @@ def choice_heroe_message(pseudo):
 
 
 def choose_number(message,min, max):
-	choix = input(message)
-	if choix.isdigit() == False or choix < min or choix > max:
+	choix = str(input(message))
+	if choix.isdigit() == False or int(choix) < min or int(choix) > max:
 		choose_number(message,min, max)
-	return choix
+	return int(choix)
 	
 
 def charger_heroes_db(collection_heroes):

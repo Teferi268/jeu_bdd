@@ -65,20 +65,19 @@ def show_heroe_list(heroes):
 
 def choose_heroe(heroes):
     #Gère le choix des personage 
-    choix = choose_number("Veuillez taper à la suite les nombre a vos 3 heroes...",1,len(heroes))
+    choix = 0
     team = []
     while len(team) < 3:
-        team.append(heroes[choix])
+        #Pour s'arreter à 3 heroe dans l'équipe 
         choix = choose_number("Veuillez taper à la suite les nombre a vos 3 heroes...",1,len(heroes))
+        team.append(heroes[choix])
+        
 
     return team
-def show_team(team, heroes):
+def show_team(team):
     print("Votre équipe est composée de :")
-    for nom in team:
-        for hero in heroes:
-            if nom in hero:
-                print(f"- {hero}")
-                break
+    for hero in team:
+        print(f"- {hero}")
 def main_menu():
     heroes = charger_heroes_db(collection_heroes)
     monsters = charger_monstres_db(collection_monster)
@@ -88,4 +87,4 @@ def main_menu():
     choice_heroe_message(pseudo)
     show_heroe_list(heroes)
     team = choose_heroe(heroes)
-    show_team(team, heroes)
+    show_team(team)
