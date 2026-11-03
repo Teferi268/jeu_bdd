@@ -12,7 +12,15 @@ def choice_menu():
 		print(option)
 	return input("...")
 def affichage_spawn_monster(monster):
-	print(f"Vous allez affronter un {monster[0]["nom"]}")
+	print(f"Vous allez affronter un {monster["nom"]}")
+
+def affichage_attack_team(team):
+	for heroe in team:
+		print(f"Le {heroe["nom"]} attaque le monstre en infligeant {heroe["atk"]}")
+def affichage_attack_monster(monster):
+	print(f"Le monstre inflige point {monster["atk"]} de degats à chaque enenemie")
+def affichage_end_message(round):
+	print(f"Vous avez atteint le round {round}")
 def show_score():
 	return
 def choose_number(message,min, max):
