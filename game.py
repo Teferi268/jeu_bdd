@@ -86,15 +86,29 @@ def final_choice_team():
     elif choix == 1:  
         return False
 def main_menu():
-    heroes = charger_heroes_db(collection_heroes)
-    monsters = charger_monstres_db(collection_monster)
-    valid_team = False
-    set_up_db()
+    #Variable essentiel 
+    set_up_db() 
+    #-Message de bienvenue + règles 
     lobby_message()
-    pseudo = ask_pseudo()
+    #Menu du debut
+    return choice_menu()
+    
+   
+def game_start(pseudo):
+    valid_team = False
     choice_heroe_message(pseudo)
     while valid_team == False:
         show_heroe_list(heroes)
         team = choose_heroe(heroes)
         show_team(team)
         valid_team = final_choice_team()
+
+def start_choice(choix):
+    if choix == 1:
+        #-Demander les inputs -Pseudo
+        username =ask_pseudo()
+        game_start(username)
+    elif choix == 2:
+        show_score()
+    elif choix == 3:    
+        pass

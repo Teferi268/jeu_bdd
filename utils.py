@@ -6,7 +6,13 @@ def choice_heroe_message(pseudo):
     print(f"Bienvenue {pseudo}")
     print("Vous allez devoir choisir 3 heros parmis cette liste")
 
-
+def choice_menu():
+	choix =["1-Nouvelle partie", "2-Voir score", "3-Quitter"]
+	for option in choix:
+		print(option)
+	return input("...")
+def show_score():
+	return
 def choose_number(message,min, max):
 	choix = str(input(message))
 	if choix.isdigit() == False or int(choix) < min or int(choix) > max:

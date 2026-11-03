@@ -1,4 +1,8 @@
-from game import main_menu
+from game import *
 
-main_menu()
+choix = main_menu()
+
+start_choice(choix)
+
+
 
