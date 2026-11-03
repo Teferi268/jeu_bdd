@@ -48,6 +48,7 @@ import os
 from pymongo import MongoClient
 from db_init import *
 from utils import *
+from random import *
 
 
 def ask_pseudo():
@@ -102,6 +103,49 @@ def game_start(pseudo, heroes):
         team = choose_heroe(heroes)
         show_team(team)
         valid_team = final_choice_team()
+        start_battle(valid_team)
+
+
+def start_battle(team):
+    monster = choose_monster()
+    battle(team, monster)
+
+def choose_monster(monster):
+    monster = choice(monster)
+
+def battle(team, monster):
+    attack_monster(monster,team)
+    attack_team(team, monster)
+
+def attack_monster(monster,team):
+    atk_monster = get_monster_atk(monster)
+    take_damage_team(team,atk_monster)
+
+def attack_team(team,monster):
+    atk_team = get_team_atk(team)
+    take_damage_monster(monster,atk_team)
+
+def get_team_atk(team):
+    team = is_alive_team(team)
+    total_dmg = 0
+    for heroe in team:
+        total_dmg += heroe["ATK"]
+    return total_dmg
+def get_monster_atk(monster):
+    return monster[0]["ATK"]
+def take_damage_team(team, damage):
+    team = is_alive_team(team)
+    for hero in team:
+        hero["PV"] - damage // is_alive_team(team) 
+def is_alive_team(team):
+    team_alive = []
+    for heroe in team:
+        if heroe["PV"] > 0:
+            team_alive.append(heroe)
+    return team_alive
+def take_damage_monster(monster, damage):
+    monster["PV"] - damage
+    
 
 def start_choice(choix, heroes):
     if int(choix) == 1:
@@ -112,3 +156,5 @@ def start_choice(choix, heroes):
         show_score()
     elif int(choix) == 3:    
         pass
+
+
