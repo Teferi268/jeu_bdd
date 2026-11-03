@@ -53,7 +53,7 @@ from utils import *
 def ask_pseudo():
     #Permet de demander le pseudo et de le verifier 
     username = input("Veuillez chosir votre pseudo pour cette partie...")
-    if is_username_valide():
+    if not is_username_valide(username):
         return ask_pseudo()
     return username
 
@@ -80,11 +80,11 @@ def show_team(team):
         print(f"- {hero}")
 
 def final_choice_team():
-    choix = input("1- Valider l'équipe 2- Changer d'équipe")
+    choix = int(input("1- Valider l'équipe 2- Changer d'équipe"))
     if choix == 2:
-        return True
-    elif choix == 1:  
         return False
+    elif choix == 1:  
+        return True
 def main_menu():
     #Variable essentiel 
     set_up_db() 
@@ -94,7 +94,7 @@ def main_menu():
     return choice_menu()
     
    
-def game_start(pseudo):
+def game_start(pseudo, heroes):
     valid_team = False
     choice_heroe_message(pseudo)
     while valid_team == False:
@@ -103,12 +103,12 @@ def game_start(pseudo):
         show_team(team)
         valid_team = final_choice_team()
 
-def start_choice(choix):
-    if choix == 1:
+def start_choice(choix, heroes):
+    if int(choix) == 1:
         #-Demander les inputs -Pseudo
-        username =ask_pseudo()
-        game_start(username)
-    elif choix == 2:
+        username = ask_pseudo()
+        game_start(username, heroes)
+    elif int(choix) == 2:
         show_score()
-    elif choix == 3:    
+    elif int(choix) == 3:    
         pass
