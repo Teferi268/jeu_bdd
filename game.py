@@ -81,6 +81,7 @@ def show_team(team):
         print(f"- {hero}")
 
 def final_choice_team():
+    #Permet la gestion de la finalisation du choix de l'équipe
     choix = int(input("1- Valider l'équipe 2- Changer d'équipe"))
     if choix == 2:
         return False
@@ -96,6 +97,7 @@ def main_menu():
     
    
 def game_start(pseudo, heroes):
+    #Lance le choix du joueur qui est de faire un nouvelle partie
     valid_team = False
     choice_heroe_message(pseudo)
     while valid_team == False:
@@ -107,6 +109,7 @@ def game_start(pseudo, heroes):
 
 
 def start_battle(team):
+    #Round du combat
     round = 0
     while True:
         monster = choose_monster(monsters)
@@ -118,47 +121,59 @@ def start_battle(team):
     affichage_end_message(round)
 
 def choose_monster(monster):
+    #Permet de choisir un monstre aleatoire
     monster = choice(monster)
     affichage_spawn_monster(monster)
+    return monster
 def team_alive(team):
+    #verifie si l'équipe est en vie
     if not team:
         return False
     return True
 def battle(team, monster):
+    #bataille entre l'équipe et le monstre
     attack_monster(monster,team)
     attack_team(team, monster)
 
 def attack_monster(monster,team):
+    #Fais en sorte que le monstre attaque les heroes de l'équipe
     atk_monster = get_monster_atk(monster)
     take_damage_team(team,atk_monster)
 
 def attack_team(team,monster):
+    #Fais en sorte que l'équipe attaque le monstre
     atk_team = get_team_atk(team)
     take_damage_monster(monster,atk_team)
 
 def get_team_atk(team):
+    #Permet de recuperrer le nombre total d'atk de l'équipe en vie
     team = is_alive_team(team)
     total_dmg = 0
     for heroe in team:
         total_dmg += heroe["ATK"]
     return total_dmg
 def get_monster_atk(monster):
+    #Permet de recuperrer l'atk du monstre
     return monster["ATK"]
 def take_damage_team(team, damage):
+    #Fais en sorte que l'équipe prenne les degats du monstre
     team = is_alive_team(team)
     for hero in team:
-        hero["PV"] - damage / len(is_alive_team(team)) 
+        hero["PV"] -= damage / len(is_alive_team(team)) 
 def is_alive_team(team):
+    #Permet de mettre tout les heroes de l'équipe dans une nouvelle liste de heroes qui seront ceux en vie
     team_alive = []
     for heroe in team:
         if heroe["PV"] > 0:
             team_alive.append(heroe)
     return team_alive
 def take_damage_monster(monster, damage):
-    monster[0]["PV"] - damage
+    #Fais en sorte que le monstre prenne les degats des heroes 
+    monster["PV"] -= damage
     
 
 def start_choice(choix, heroes):
+    #Permet la gestion du choix de l'utilisateur au debut
     if int(choix) == 1:
         #-Demander les inputs -Pseudo
         username = ask_pseudo()
