@@ -1,4 +1,7 @@
 import os
+from rich.console import Console
+from rich.panel import Panel
+from InquirerPy import inquirer
 def clear_console():
 	os.system('cls' if os.name == 'nt' else 'clear')
 def lobby_message():
@@ -21,21 +24,21 @@ def choice_heroe_message(pseudo):
 
 
 def choice_menu():
-    largeur = 36
-    choix = [
-        "[1] Nouvelle partie",
-        "[2] Voir les scores",
-        "[3] Quitter"
-    ]
+		largeur = 36
+		choix = inquirer.select(
+			message="",
+			choices=["[1] Nouvelle partie","[2] Voir les scores","[3] Quitter" ],
+			pointer="▶", 
+			).execute()
 
-    print("\n+" + "-" * largeur + "+")
+		print("\n+" + "-" * largeur + "+")
 
-    for option in choix:
-        print("|" + option.center(largeur) + "|")
+		for option in choix:
+			print("|" + option.center(largeur) + "|")
 
-    print("+" + "-" * largeur + "+")
+		print("+" + "-" * largeur + "+")
+		return choix
 
-    return input("...")
 def affichage_spawn_monster(monster):
 	print(f"Vous allez affronter un {monster["nom"]}")
 
@@ -44,9 +47,9 @@ def affichage_end_message(round):
 def affichage_stat_team(team):
 	for heroe in team:
 		if heroe['PV'] < 1:
-			print(f"Le {heroe['nom']} est mort")
+			print(f"{heroe['nom']} est mort")
 		else:
-			print(f"Le {heroe['nom']} n'a plus que {round(heroe['PV'])} point de vie.")
+			print(f"{heroe['nom']} : {round(heroe['PV'])} PV")
 
 def choose_number(message,min, max):
 	#Verifie si le nombre est bien un nombre et se situe entre le mln et le max

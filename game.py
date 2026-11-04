@@ -50,6 +50,9 @@ from db_init import *
 from utils import *
 from random import *
 import time
+from rich.console import Console
+from rich.panel import Panel
+from InquirerPy import inquirer
 
 
 def ask_pseudo():
@@ -61,21 +64,31 @@ def ask_pseudo():
 
 def show_heroe_list(heroes):
     #affiche la liste depuis un dictionaire
-    compteur = 1
-    for heroe in heroes:
-        print(f"{compteur}-{heroe['nom']} ATK:{heroe['ATK']} DEF:{heroe['DEF']} PV:{heroe['PV']} \n")
-        compteur += 1
+    liste_choix = []
+
+    for hero in heroes:
+        option = { "name": f"{hero['nom']} | ATK: {hero['ATK']} | DEF: {hero['DEF']} | PV: {hero['PV']}","value": hero}
+
+        liste_choix.append(option)
+
+    choix = inquirer.select(
+        message="Sélectionnez un héros :",
+        choices=liste_choix,
+        pointer="▶"
+    ).execute()
+    return choix
+
 
 def choose_heroe(heroes):
     #Gère le choix des personage 
-    choice = 0
     team = []
-    counter = 1 #Permet l'affichage dinamyque dans la demande de l'équipe
+    team_dispo = heroes.copy()
     while len(team) < 3:
         #Pour s'arreter à 3 heroe dans l'équipe 
-        choice = choose_number(f"Veuillez taper le numero de votre heroe numero {counter} : ",1,len(heroes)) -1
-        team.append(heroes[choice])
-        counter += 1
+        hero = show_heroe_list(team_dispo)
+        team.append(hero.copy())
+        team_dispo.remove(hero)
+
     return team
 
 def show_team(team):
@@ -88,7 +101,11 @@ def show_team(team):
 
 def final_choice_team():
     #Permet la gestion de la finalisation du choix de l'équipe
-    choix = int(input("1- Valider l'équipe 2- Changer d'équipe"))
+    choix = choix = inquirer.select(
+                message="",
+                choices=["[1] Valider","[2] Changer" ],
+                pointer="▶", 
+                ).execute()
     if choix == 2:
         return False
     elif choix == 1:  
@@ -100,7 +117,15 @@ def main_menu():
     #-Message de bienvenue + règles 
     lobby_message()
     #Menu du debut
-    return int(choice_menu())
+    choix = choice_menu()
+    clear_console()
+
+    if choix.startswith("[1]"):
+        return 1
+    elif choix.startswith("[2]"):
+        return 2
+    elif choix.startswith("[3]"):
+        return 3
     
    
 def game_start(pseudo, heroes):
@@ -108,7 +133,6 @@ def game_start(pseudo, heroes):
     valid_team = False
     choice_heroe_message(pseudo)
     while valid_team == False:
-        show_heroe_list(heroes)
         team = choose_heroe(heroes)
         show_team(team)
         valid_team = final_choice_team()
@@ -137,7 +161,7 @@ def start_battle(team):
 
 def choose_monster(monster):
     #Permet de choisir un monstre aleatoire
-    monster = choice(monster)
+    monster = choice(monster).copy()
     affichage_spawn_monster(monster)
     return monster
 def team_alive(team):
