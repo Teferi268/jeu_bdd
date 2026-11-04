@@ -50,10 +50,13 @@ def affichage_stat_team(team):
 
 def choose_number(message,min, max):
 	#Verifie si le nombre est bien un nombre et se situe entre le mln et le max
-	choix = str(input(message))
+	choix = input(message)
 	if choix.isdigit() == False or int(choix) < min or int(choix) > max:
 		choose_number(message,min, max)
 	return int(choix)
+
+
+
 def message_error_username():
 	print("Pseudo incorrecte : lettre uniquement, 12 caractères max.")
 
