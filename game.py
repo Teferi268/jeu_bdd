@@ -63,7 +63,7 @@ def show_heroe_list(heroes):
     #affiche la liste depuis un dictionaire
     compteur = 1
     for heroe in heroes:
-        print(f"{compteur}- Nom:{heroe['nom']} ATK:{heroe['ATK']} DEF:{heroe['DEF']} PV:{heroe['PV']} \n")
+        print(f"{compteur}-{heroe['nom']} ATK:{heroe['ATK']} DEF:{heroe['DEF']} PV:{heroe['PV']} \n")
         compteur += 1
 def choose_heroe(heroes):
     #Gère le choix des personage 
@@ -81,7 +81,7 @@ def show_team(team):
     print("Votre équipe est composée de :")
     compteur = 1
     for heroe in team:
-        print(f"{compteur}- Nom:{heroe['nom']} ATK:{heroe['ATK']} DEF:{heroe['DEF']} PV:{heroe['PV']} \n")
+        print(f"{compteur}-{heroe['nom']} ATK:{heroe['ATK']} DEF:{heroe['DEF']} PV:{heroe['PV']} \n")
         compteur += 1
 
 def final_choice_team():
@@ -109,7 +109,7 @@ def game_start(pseudo, heroes):
         team = choose_heroe(heroes)
         show_team(team)
         valid_team = final_choice_team()
-    start_battle(team)
+    return start_battle(team)
 
 
 def start_battle(team):
@@ -126,10 +126,10 @@ def start_battle(team):
             #L'équipe attaque
             attack_team(team, monster)
             round += 1
-            time.sleep(2)
+            time.sleep(1)
         else :
             #Toute l'équipe est morte
-            break
+            return round
     affichage_end_message(round)
 
 def choose_monster(monster):
@@ -185,13 +185,39 @@ def take_damage_monster(monster, damage):
 
 def start_choice(choix, heroes):
     #Permet la gestion du choix de l'utilisateur au debut
+    
     if int(choix) == 1:
         #-Demander les inputs -Pseudo
         username = ask_pseudo()
-        game_start(username, heroes)
+        score = game_start(username, heroes)
+        save_score(username, score)
     elif int(choix) == 2:
-        show_score()
+        list_scores = load_score()
+        show_score(list_scores)
     elif int(choix) == 3:    
-        pass
+        return print("Fin du jeu")
 
 
+
+
+
+
+
+def save_score(username, score):
+    print("sauvegarde reussi")
+    collection_scores.insert_one({"username" : username , "score" : score})
+    return load_score()
+def load_score():
+    return list(collection_scores.find({}, {"_id": 0}).sort("score", -1))
+def show_score(scores):
+    rang = 1
+    print("\n=== SCORES ===")
+    if is_score_empty(scores):
+        return print("Aucun score enregistré")
+    for score in scores:
+        print(f"{rang}. {score['username']} - {score['score']} vagues")
+        rang += 1
+def is_score_empty(scores):
+    if len(scores) == 0:
+        return True
+    return False

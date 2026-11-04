@@ -2,25 +2,40 @@ import os
 def clear_console():
 	os.system('cls' if os.name == 'nt' else 'clear')
 def lobby_message():
-    print("\n+------------------------------------+")
-    print("|        BIENVENUE SUR LE JEU        |")
-    print("+------------------------------------+")
+    largeur = 36
+
+    print("\n+" + "-" * largeur + "+")
+    print("|" + "BIENVENUE SUR LE JEU".center(largeur) + "|")
+    print("+" + "-" * largeur + "+")
+
 
 def choice_heroe_message(pseudo):
-	print("\n+------------------------------------+")
-	print(f"|        BIENVENUE {pseudo}           |")
-	print("+-------------------------------------+")
-	print("|    Vous allez devoir choisir        |")
-	print("|    3 heros parmis cette liste       |")
-	print("+-------------------------------------+")
+    largeur = 36
+
+    print("\n+" + "-" * largeur + "+")
+    print("|" + f"BIENVENUE {pseudo}".center(largeur) + "|")
+    print("+" + "-" * largeur + "+")
+    print("|" + "Vous allez devoir choisir".center(largeur) + "|")
+    print("|" + "3 heros parmi cette liste".center(largeur) + "|")
+    print("+" + "-" * largeur + "+")
+
 
 def choice_menu():
-	choix =["[1] Nouvelle partie", "[2] Voir les scores", "[3] Quitter"]
-	print("\n+------------------------------------+")
-	for option in choix:
-		print(f"|    {option}        |")
-	print("+-------------------------------------+")
-	return input("...")
+    largeur = 36
+    choix = [
+        "[1] Nouvelle partie",
+        "[2] Voir les scores",
+        "[3] Quitter"
+    ]
+
+    print("\n+" + "-" * largeur + "+")
+
+    for option in choix:
+        print("|" + option.center(largeur) + "|")
+
+    print("+" + "-" * largeur + "+")
+
+    return input("...")
 def affichage_spawn_monster(monster):
 	print(f"Vous allez affronter un {monster["nom"]}")
 
@@ -32,8 +47,7 @@ def affichage_stat_team(team):
 			print(f"Le {heroe['nom']} est mort")
 		else:
 			print(f"Le {heroe['nom']} n'a plus que {round(heroe['PV'])} point de vie.")
-def show_score():
-	return
+
 def choose_number(message,min, max):
 	#Verifie si le nombre est bien un nombre et se situe entre le mln et le max
 	choix = str(input(message))
@@ -49,6 +63,12 @@ def is_username_valide(username):
 		message_error_username()
 		return False
 	return True
+
+
+
+
+
+
 
 
 def charger_heroes_db(collection_heroes):

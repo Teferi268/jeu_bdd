@@ -6,6 +6,7 @@ client = MongoClient(uri)
 db = client["heroes"]
 collection_heroes = db["heroes"]
 collection_monster = db["monstres"]
+collection_scores = db["scores"]
 
 heroes = [
     {"nom": "Guerrier", "ATK": 15, "DEF": 10, "PV": 100},
