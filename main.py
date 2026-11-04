@@ -1,6 +1,7 @@
 from game import *
 
-choix = main_menu()
-start_choice(choix, heroes)
+while True:
+    choix = main_menu()
+    start_choice(choix, heroes)
 
 

@@ -72,7 +72,7 @@ def choose_heroe(heroes):
     counter = 1 #Permet l'affichage dinamyque dans la demande de l'équipe
     while len(team) < 3:
         #Pour s'arreter à 3 heroe dans l'équipe 
-        choice = choose_number(f"Veuillez taper le numero de votre heroe numero {counter} : ",1,len(heroes))
+        choice = choose_number(f"Veuillez taper le numero de votre heroe numero {counter} : ",1,len(heroes)) -1
         team.append(heroes[choice])
         counter += 1
     return team
@@ -185,7 +185,6 @@ def take_damage_monster(monster, damage):
 
 def start_choice(choix, heroes):
     #Permet la gestion du choix de l'utilisateur au debut
-    
     if int(choix) == 1:
         #-Demander les inputs -Pseudo
         username = ask_pseudo()
@@ -195,7 +194,7 @@ def start_choice(choix, heroes):
         list_scores = load_score()
         show_score(list_scores)
     elif int(choix) == 3:    
-        return print("Fin du jeu")
+        return exit()
 
 
 
