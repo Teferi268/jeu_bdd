@@ -61,9 +61,10 @@ def ask_pseudo():
 
 def show_heroe_list(heroes):
     #affiche la liste depuis un dictionaire
+    compteur = 1
     for heroe in heroes:
-        print(f"{heroe}\n")
-
+        print(f"{compteur}- Nom:{heroe['nom']} ATK:{heroe['ATK']} DEF:{heroe['DEF']} PV:{heroe['PV']} \n")
+        compteur += 1
 def choose_heroe(heroes):
     #Gère le choix des personage 
     choice = 0
@@ -78,8 +79,10 @@ def choose_heroe(heroes):
 def show_team(team):
     #Permet d'afficher l'équipe de joueur
     print("Votre équipe est composée de :")
-    for hero in team:
-        print(f"- {hero}")
+    compteur = 1
+    for heroe in team:
+        print(f"{compteur}- Nom:{heroe['nom']} ATK:{heroe['ATK']} DEF:{heroe['DEF']} PV:{heroe['PV']} \n")
+        compteur += 1
 
 def final_choice_team():
     #Permet la gestion de la finalisation du choix de l'équipe
@@ -98,7 +101,7 @@ def main_menu():
     
    
 def game_start(pseudo, heroes):
-    #Lance le choix du joueur qui est de faire un nouvelle partie
+    #Lance le choix du joueur qui est de faire une nouvelle partie
     valid_team = False
     choice_heroe_message(pseudo)
     while valid_team == False:
@@ -113,17 +116,19 @@ def start_battle(team):
     #Round du combat
     round = 0
     while True:
+        #Lancement de la boucle de jeu
         clear_console()
         monster = choose_monster(monsters)
         if team_alive(is_alive_team(team)):
-            affichage_attack_monster(monster)
+            #Le monstre attaque
             attack_monster(monster,team)
             affichage_stat_team(team)
-            affichage_attack_team(team)
+            #L'équipe attaque
             attack_team(team, monster)
             round += 1
             time.sleep(2)
         else :
+            #Toute l'équipe est morte
             break
     affichage_end_message(round)
 
@@ -143,11 +148,13 @@ def attack_monster(monster,team):
     #Fais en sorte que le monstre attaque les heroes de l'équipe
     atk_monster = get_monster_atk(monster)
     take_damage_team(team,atk_monster)
+    return print(f"Le monstre inflige {monster['ATK']} points de degats à chaque enenemie")
 
 def attack_team(team,monster):
     #Fais en sorte que l'équipe attaque le monstre
     atk_team = get_team_atk(team)
     take_damage_monster(monster,atk_team)
+    return print(*(f"Le {h['nom']} attaque le monstre en infligeant {h['ATK']}" for h in team), sep="\n")
 
 def get_team_atk(team):
     #Permet de recuperrer le nombre total d'atk de l'équipe en vie
