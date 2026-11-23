@@ -1,3 +1,2 @@
 -loot sur les monstres
 -système de save
--
