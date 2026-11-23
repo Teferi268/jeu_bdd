@@ -8,6 +8,14 @@ class CharacterDB:
     defense: int
     attack : int 
     inventaire: List['Item'] 
+    def __dict__(self):
+        return {
+            "name": self.name,
+            "hp": self.hp,
+            "defense": self.defense,
+            "attack": self.attack,
+            "inventaire": [item.__dict__() for item in self.inventaire]
+        }
 
 @dataclass
 class MonsterDB:
@@ -16,6 +24,14 @@ class MonsterDB:
     defense: int
     attack : int
     dropable : List['Item']
+    def __dict__(self):
+        return {
+            "name": self.name,
+            "hp": self.hp,
+            "defense": self.defense,
+            "attack": self.attack,
+            "dropable": [item.__dict__() for item in self.dropable]
+        }
 
 
 @dataclass
