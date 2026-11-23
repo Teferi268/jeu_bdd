@@ -1,43 +1,41 @@
-import os 
-from pymongo import MongoClient
+import pymongo
 
-uri = "mongodb://localhost:27017/"
-client = MongoClient(uri) 
-db = client["heroes"]
-collection_heroes = db["heroes"]
-collection_monster = db["monstres"]
-collection_scores = db["scores"]
-
-heroes = [
-    {"nom": "Guerrier", "ATK": 15, "DEF": 10, "PV": 100},
-    {"nom": "Mage", "ATK": 20, "DEF": 5, "PV": 80},
-    {"nom": "Archer", "ATK": 18, "DEF": 7, "PV": 90},
-    {"nom": "Voleur", "ATK": 22, "DEF": 8, "PV": 85},
-    {"nom": "Paladin", "ATK": 14, "DEF": 12, "PV": 110},
-    {"nom": "Sorcier", "ATK": 25, "DEF": 3, "PV": 70},
-    {"nom": "Chevalier", "ATK": 17, "DEF": 15, "PV": 120},
-    {"nom": "Moine", "ATK": 19, "DEF": 9, "PV": 95},
-    {"nom": "Berserker", "ATK": 23, "DEF": 6, "PV": 105},
-    {"nom": "Chasseur", "ATK": 16, "DEF": 11, "PV": 100},
+# Dictionnaire des personnages et leurs statistiques
+CharacterList = [
+    {"name" : "Guerrier", "hp" : 100, "defense" : 10, "attack" : 15 },
+    {"name": "Mage", "hp" : 80, "defense": 5, "attack" : 20 },
+    {"name" : "Archer", "hp" : 90, "defense": 7, "attack" : 18},
+    {"name" : "Voleur", "hp" : 85, "defense": 8, "attack" : 22},
+    {"name" : "Paladin", "hp" : 110, "defense": 12, "attack" : 14},
+    {"name" : "Sorcier", "hp" : 70, "defense": 3, "attack" : 25},
+    {"name" : "Chevalier", "hp" : 120,"defense": 15, "attack" : 17},
+    {"name" : "Moine", "hp" : 95, "defense": 9, "attack" : 19 },
+    {"name" : "Berserker", "hp" : 105, "defense": 6, "attack" : 23},
+    {"name" : "Chasseur", "hp" : 100, "defense": 11, "attack" : 16}
 ]
 
-monsters = [
-    {"nom": "Gobelin", "ATK": 10, "DEF": 5, "PV": 50},
-    {"nom": "Orc", "ATK": 20, "DEF": 8, "PV": 120},
-    {"nom": "Dragon", "ATK": 35, "DEF": 20, "PV": 300},
-    {"nom": "Zombie", "ATK": 12, "DEF": 6, "PV": 70},
-    {"nom": "Troll", "ATK": 25, "DEF": 15, "PV": 200},
-    {"nom": "Spectre", "ATK": 18, "DEF": 10, "PV": 100},
-    {"nom": "Golem", "ATK": 30, "DEF": 25, "PV": 250},
-    {"nom": "Vampire", "ATK": 22, "DEF": 12, "PV": 150},
-    {"nom": "Loup-garou", "ATK": 28, "DEF": 18, "PV": 180},
-    {"nom": "Squelette", "ATK": 15, "DEF": 7, "PV": 90},
+EnemyList = [
+    {"name" : "Goblin", "hp" : 50, "defense" : 5, "attack" : 10},
+    {"name" : "Orc", "hp" : 120, "defense": 8, "attack" : 20 },
+    {"name" : "Dragon", "hp" : 300, "defense": 20, "attack" : 35 },
+    {"name" : "Zombie", "hp" : 70, "defense": 6, "attack" : 12 },
+    {"name" : "Troll", "hp" : 200, "defense": 15, "attack" : 25},
+    {"name" : "Spectre",  "hp" : 100, "defense": 10, "attack" : 18},
+    {"name" : "Golem", "hp" : 250, "defense": 25, "attack" : 30 },
+    {"name" : "Vampire", "hp" : 150, "defense": 12, "attack" : 22 },
+    {"name" : "Loup-Garou", "hp" : 180, "defense": 18, "attack" : 28 },
+    {"name" : "Squelette", "hp" : 90, "defense": 7, "attack" : 15 }
 ]
 
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+database = client["game_db"]
 
-def set_up_db():
-    if collection_heroes.count_documents({}) == 0:
-        collection_heroes.insert_many(heroes)
+Characters = database["characters"]
+Monsters = database["monsters"]
+Scores = database["scores"]
 
-    if collection_monster.count_documents({}) == 0:
-        collection_monster.insert_many(monsters)
+Characters.drop()
+Monsters.drop()
+
+Characters.insert_many(CharacterList)
+Monsters.insert_many(EnemyList)
