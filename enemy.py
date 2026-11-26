@@ -10,7 +10,7 @@ class Enemy(Entity):
         super().__init__(name, hp, max_hp, defense, attack)
         self.dropable = dropable
 
-    def getDropable(self) -> List['Item']:
+    def get_dropable(self) -> List['Item']:
         return self.dropable
-    def Playturn(self, target: 'Entity') -> int:
+    def play_turn(self, target: 'Entity') -> int:
         return self.attack(target)

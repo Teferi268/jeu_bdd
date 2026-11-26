@@ -11,23 +11,23 @@ class Character(Entity):
         super().__init__(name, hp, max_hp, defense, attack)
         self.equipement = equipement
 
-    def equipitem(self, item : 'Item') -> None:
+    def equip_item(self, item : 'Item') -> None:
         self.equipement.append(item)
 
-    def unequipitem(self, item : 'Item') -> None:
+    def unequip_item(self, item : 'Item') -> None:
         if item in self.equipement:
             self.equipement.remove(item)
-    def isSlotAvailable(self, item : 'Item') -> bool:
+    def is_slot_available(self) -> bool:
         if len(self.equipement) < 3:
             return True
         else:
             return False
-    def getEquipement(self) -> List['Item']:
+    def get_equipement(self) -> List['Item']:
         return self.equipement
-    def projectDamage(self, target) -> int:
+    def project_damage(self, target) -> int:
         projected_damage = max(self.attack - target.defense, 1)
         return projected_damage
     def play_turn(self, target: 'Entity') -> int:
-        return self.projectDamage(target)
+        return self.project_damage(target)
     
 

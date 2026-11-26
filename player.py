@@ -2,30 +2,31 @@ from dataclasses import dataclass
 from typing import *
 from item import Item
 from character import Character
+from entity import Entity
 
-class Player:
+class Player(Entity):
     def __init__(self, name: str, score: int):
         self.name = name
         self.score = score
         self.team: List['Character'] = []
-        self.invotory: List['Item'] = []
+        self.inventory: List['Item'] = []
 
-    def CreateTeam(self,characters: List['Character']):
+    def create_team(self,characters: List['Character']):
         self.team = characters
 
-    def PickCharacter(self, character:' Character'):
+    def pick_character(self, character:' Character'):
         self.team.append(character)
-    def IsTeamAlive(self) -> bool:
+    def is_team_alive(self) -> bool:
         for character in self.team:
             if character.hp > 0:
                 return True
         return False
-    def CheckInventory(self) -> List['Item']:
-        return self.invotory
+    def check_inventory(self) -> List['Item']:
+        return self.inventory
     
-    def UseItem(self, item: 'Item'):
-        if item in self.invotory:
-            self.invotory.remove(item)
+    def use_item(self, item: 'Item'):
+        if item in self.inventory:
+            self.inventory.remove(item)
             return item
         else:
             return None

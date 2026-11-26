@@ -147,7 +147,7 @@ DifficultyList = [difficulty.__dict__() for difficulty in [
 	           defense_multiplier=2.8, item_multiplier=1.8)
 ]]
 print("Initializing database...")
-client: pymongo.MongoClient = pymongo.MongoClient(os.getenv("MONGO_URL"))
+client: pymongo.MongoClient = pymongo.MongoClient(os.getenv("mongodb://localhost:27017/"))
 print("Connected to MongoDB.")
 print("Selecting database...")
 database = client["game_db"]
