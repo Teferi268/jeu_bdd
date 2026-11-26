@@ -110,15 +110,13 @@ EnemyList = [
 	          attack=20, dropable=[ItemList[4], ItemList[15]])
 ]
 EnemyListDict = [MonsterDB.__dict__() for MonsterDB in EnemyList]
-
+	
 
 VagueList = [VagueDB.__dict__() for VagueDB in [
 	VagueDB(start_number=1, end_number=5, monsters=[EnemyList[0], EnemyList[1]]),
 	VagueDB(start_number=6, end_number=10, monsters=[EnemyList[3], EnemyList[9]]),
-	VagueDB(start_number=11, end_number=15,
-	        monsters=[EnemyList[4], EnemyList[5]]),
-	VagueDB(start_number=16, end_number=20,
-	        monsters=[EnemyList[6], EnemyList[7]]),
+	VagueDB(start_number=11, end_number=15,monsters=[EnemyList[4], EnemyList[5]]),
+	VagueDB(start_number=16, end_number=20, monsters=[EnemyList[6], EnemyList[7]]),
 	VagueDB(start_number=21, end_number=25, monsters=[EnemyList[8]]),
 	VagueDB(start_number=26, end_number=30, monsters=[EnemyList[2]]),
 ]]

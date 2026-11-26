@@ -11,23 +11,44 @@ class Character(Entity):
         super().__init__(name, hp, max_hp, defense, attack)
         self.equipement = equipement
 
-    def equip_item(self, item : 'Item') -> None:
+    def equip_item(self, item : 'Item') -> bool:
+        if len(self.equipement) >= 3:
+            return False
+
+        if not self.is_slot_available(item.item_type):
+            return False
+
         self.equipement.append(item)
+        return True
 
     def unequip_item(self, item : 'Item') -> None:
         if item in self.equipement:
             self.equipement.remove(item)
-    def is_slot_available(self) -> bool:
-        if len(self.equipement) < 3:
-            return True
-        else:
+    def is_slot_available(self, slot_name: str) -> bool:
+        for i in self.equipement:
+            if i.item_type == slot_name:
+                return True
             return False
-    def get_equipement(self) -> List['Item']:
-        return self.equipement
+    def get_equipement(self, slot_name : str) -> List['Item']:
+        for item in self.equipement:
+            if item.item_type == slot_name:
+                return item
+
+        return None
     def project_damage(self, target) -> int:
-        projected_damage = max(self.attack - target.defense, 1)
-        return projected_damage
+        return min(max(self.get_attack() - target.get_defense(), 1),target.hp)
     def play_turn(self, target: 'Entity') -> int:
-        return self.project_damage(target)
+
+        return self.attack_target(target)
+    def get_attack(self) -> int:
+        attack = self.attack
+        for item in self.equipement:
+            attack += item.stats.get("attack", 0)
+        return attack
+    def get_defense(self) -> int:
+        defense = self.defense
+        for item in self.equipement:
+            defense += item.stats.get("defense", 0)
+        return defense  
     
 

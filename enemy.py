@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from entity import Entity
 from typing import *
 from item import Item
+from random import random
 
 
 
@@ -13,4 +14,10 @@ class Enemy(Entity):
     def get_dropable(self) -> List['Item']:
         return self.dropable
     def play_turn(self, target: 'Entity') -> int:
-        return self.attack(target)
+        return self.attack_target(target)
+    def drop_loot(self) -> List['Item']:
+        loot = []
+        for item in self.dropable:
+            if random() <= item.droprate:
+                loot.append(item)
+        return loot

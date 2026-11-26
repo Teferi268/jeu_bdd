@@ -17,7 +17,8 @@ class Game:
     def load_game(self):
         self.player, self.vague = self.mongoclient.load_game()
     def launch_game(self):
-        self.vague.play_vague()
+        while self.player.team.is_alive():
+            self.vague.play_vague()
     def show_leaderboard(self):
         leaderboard = self.mongoclient.get_leaderboard()
         for entry in leaderboard:
