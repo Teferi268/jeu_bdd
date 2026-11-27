@@ -1,6 +1,3 @@
-from dataclasses import dataclass
-from core.item import Item
-from core.character import Character
 from core.vague import vague
 from core.player import Player
 from db.db_init import *

@@ -1,6 +1,4 @@
-from dataclasses import dataclass
 from typing import *
-from core.item import Item
 
 
 
@@ -12,6 +10,9 @@ class Entity:
         self.max_hp = max_hp
         self.defense = defense
         self.attack = attack
+
+    def __str__(self):
+        return f"{self.name} (HP: {self.hp}/{self.max_hp}, Attack: {self.get_attack()}, Defense: {self.get_defense()})"
 
     def is_alive(self) -> bool:
         return self.hp > 0

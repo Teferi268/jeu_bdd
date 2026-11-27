@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from typing import *
 from core.enemy import Enemy
 from db.db_init import *
@@ -17,8 +16,12 @@ class vague:
         self.monsters = []
 
         difficulty = self.get_difficulty()
+        numero = (vague_actuelle - 1) % 30 + 1
 
-        monster_data = choice(EnemyListDict)
+        for vague_data in VagueList:
+            if vague_data["start_number"] <= numero <= vague_data["end_number"]:
+                monster_data = choice(vague_data["monsters"])
+                break
 
         monster = Enemy(
             name=monster_data["name"],
@@ -54,11 +57,12 @@ class vague:
                 if monster.is_alive():
                     if not player.is_team_alive():
                         break
-                target = choice(player.get_alive_characters())
-                damage = monster.play_turn(target)
 
-                print(f"{target.name} attaque {character.name} et inflige {damage} points de dégâts.")
-                print(f"{character.name} a maintenant {character.hp} points de vie.")
+                    target = choice(player.get_alive_characters())
+                    damage = monster.play_turn(target)
+
+                    print(f"{monster.name} attaque {target.name} et inflige {damage} points de dégâts.")
+                    print(f"{target.name} a maintenant {target.hp} points de vie.")
 
         print("Game over")
         return False
@@ -66,8 +70,11 @@ class vague:
 
 
     def get_difficulty(self) -> dict:
+        lap = (self.vague_actuelle - 1) // 10 + 1
+
         for difficulty in DifficultyList:
-            if difficulty["lap"] == self.vague_actuelle // 10:
+            if difficulty["lap"] == lap:
                 return difficulty
+
         return DifficultyList[-1]
             

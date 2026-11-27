@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from core.entity import Entity
 from typing import *
 from core.item import Item
