@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from entity import Entity
+from core.entity import Entity
 from typing import *
-from item import Item
+from core.item import Item
 from random import random
 
 

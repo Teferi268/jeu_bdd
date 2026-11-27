@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from item import Item
-from character import Character
-from vague import vague
-from player import Player
-from db_init import *
+from core.item import Item
+from core.character import Character
+from core.vague import vague
+from core.player import Player
+from db.db_init import *
 from pymongo import MongoClient
 
 
@@ -46,7 +46,7 @@ class Game:
         return save_data
 
     def load_game(self, player_name: str):
-        return self.mongo_client["saves"].find_one({"player_name": player_name})
+        return self.mongo_client["game_db"]["saves"].find_one({"player_name": player_name})
 
 
     def launch_game(self):

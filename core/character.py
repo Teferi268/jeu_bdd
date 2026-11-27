@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from entity import Entity
+from core.entity import Entity
 from typing import *
-from item import Item
+from core.item import Item
 
 
 
@@ -10,6 +10,9 @@ class Character(Entity):
     def __init__(self, name: str, hp: int, max_hp: int, defense: int, attack: int, equipement: List['Item']):
         super().__init__(name, hp, max_hp, defense, attack)
         self.equipement = equipement
+    
+    def __str__(self):
+        return f"{self.name} (HP: {self.hp}/{self.max_hp}, Attack: {self.get_attack()}, Defense: {self.get_defense()})"
 
     def equip_item(self, item : 'Item') -> bool:
         if len(self.equipement) >= 3:

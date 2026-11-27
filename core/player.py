@@ -1,8 +1,8 @@
 from typing import *
-from item import Item
-from character import Character
-from consumable import Consumable
-from equipable import equipable
+from core.item import Item
+from core.character import Character
+from core.consumable import Consumable
+from core.equipable import equipable
 
 
 class Player():

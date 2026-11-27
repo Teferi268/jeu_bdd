@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from entity import Entity
-from item import Item
+from core.entity import Entity
+from core.item import Item
 
 class Consumable(Item):
 

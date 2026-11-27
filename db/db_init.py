@@ -1,6 +1,6 @@
 import os
 import pymongo
-from model import *
+from db.model import *
 # Dictionnaire des personnages et leurs statistiques
 CharacterList = [CharacterDB.__dict__() for CharacterDB in [
 	CharacterDB(name="Guerrier", hp=100, defense=10, attack=15),
