@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from typing import *
 from enemy import Enemy
 from db_init import *
-from random import random
+from random import choice
+from player import Player
 
 
 class vague:
@@ -13,18 +14,39 @@ class vague:
     def pick_enemies(self, vague_actuelle: int):
         self.monsters = range(int(vague_actuelle * self.get_difficulty()))
 
-    def play_vague(self):
-        for monster in self.monsters:
-            if monster.is_alive():
-                damage = self.player.play_turn(monster)
-                monster.hp -= damage
+    def play_vague(self, player : Player):
+        
+        while player.is_team_alive():
+            alive_monsters = [monster for monster in self.monsters if monster.is_alive()]
+            if not alive_monsters:
+                print("Vous avez gagné la vague ", self.vague_actuelle)
+                return True
+            for character in player.get_alive_characters():
+                alive_monsters = [monster for monster in self.monsters if monster.is_alive()]
+                if not alive_monsters:
+                    break
+            target = choice(alive_monsters)
+            damage = character.play_turn(target)
+            print(f"{character.name} attaque {target.name} et inflige {damage} points de dégâts.")
+            print(f"{target.name} a maintenant {target.hp} points de vie.")
+            print()
+
+            for monster in self.monsters:
                 if monster.is_alive():
-                    damage = monster.play_turn(self.player)
-                    self.player.hp -= damage
-                if not self.player.is_alive():
-                    print("Perdu")
-                else:
-                    print("Vous avez gagné la vague ", self.vague_actuelle)
+                    if not player.is_team_alive():
+                        break
+                target = choice(player.get_alive_characters())
+                damage = monster.play_turn(target)
+
+                print(f"{target.name} attaque {character.name} et inflige {damage} points de dégâts.")
+                print(f"{character.name} a maintenant {character.hp} points de vie.")
+
+        print("Game over")
+        return False
+
+
+
+
 
     def get_difficulty(self) -> int:
         #obtenir le "lap" de difficulté de db_init.py

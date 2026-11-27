@@ -27,8 +27,8 @@ class Character(Entity):
     def is_slot_available(self, slot_name: str) -> bool:
         for i in self.equipement:
             if i.item_type == slot_name:
-                return True
-            return False
+                return False
+        return True
     def get_equipement(self, slot_name : str) -> List['Item']:
         for item in self.equipement:
             if item.item_type == slot_name:

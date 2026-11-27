@@ -2,7 +2,7 @@ from typing import *
 from item import Item
 from character import Character
 from consumable import Consumable
-from equipable import Equipable
+from equipable import equipable
 
 
 class Player():
@@ -42,13 +42,20 @@ class Player():
     def use_item(self, item: 'Item', target: 'Character') -> bool:
         if item not in self.inventory:
             return False
-        if target not in self.team:
+
+        if target not in    self.team:
             return False
-        elif isinstance(item, Consumable):
+
+        if isinstance(item, Consumable):
+            item.use(target)
+
+        elif isinstance(item, equipable):
             if not target.equip_item(item):
                 return False
+
         else:
             return False
+
         self.inventory.remove(item)
         return True
             
