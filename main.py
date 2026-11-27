@@ -18,10 +18,22 @@ def main():
         if choix == 0:  # Nouvelle partie
             player_name = Affichage.demander_input("Entrez le nom du joueur : ")
             player = Player(player_name, 0)
-            player.create_team(CharacterList)
+            personnages = [
+                Character(
+                    name=p["name"],
+                    hp=p["hp"],
+                    max_hp=p["hp"],
+                    defense=p["defense"],
+                    attack=p["attack"],
+                    equipement=[],
+                )
+                for p in CharacterList
+            ]
+
+            player.choisir_equipe(personnages)
             game = Game(player)
             game.launch_game()
-            Affichage.afficher_vue(VueGameOver(), len(OPTIONS_GAME_OVER))
+            Affichage.display_vue(VueGameOver(), len(OPTIONS_GAME_OVER))
         elif choix == 1:  # Charger une partie
             game = Game(None)
             game.load_game()

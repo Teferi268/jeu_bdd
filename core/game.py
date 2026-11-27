@@ -2,6 +2,7 @@ from core.vague import vague
 from core.player import Player
 from db.db_init import *
 from pymongo import MongoClient
+from ui.vues import VueLeaderboard
 
 
 class Game:
@@ -57,15 +58,8 @@ class Game:
         print(f"score final de {self.player.name} : {self.player.score}")
 
     def show_leaderboard(self):
-        scores = (
-            self.mongo_client["game_db"]["scores"]
-            .find()
-            .sort("score", -1)
-            .limit(10)
-        )
-        print("Classement des meilleurs scores :")
-        for i, player in enumerate(scores, start=1):
-            print(f"{i}. {player['player_name']} - Score: {player['score']}")
+        VueLeaderboard(self.mongo_client["game_db"]["scores"].find().sort("score", -1).limit(10))
+        
 
 
     def exit_game(self):

@@ -3,6 +3,8 @@ from core.item import Item
 from core.character import Character
 from core.consumable import Consumable
 from core.equipable import equipable
+from ui.vues import *
+from ui.affichage import Affichage
 
 
 class Player():
@@ -24,10 +26,26 @@ class Player():
         if len(self.team) >= 3:
             return False
         for member in self.team:
-            if member.name == character.name:
+            if member == character:
                 return False
         self.team.append(character)
         return True
+    def choisir_equipe(self, personnages: list[Character]) -> bool:
+        disponibles = list(personnages)
+
+        while len(self.team) < 3 and disponibles:
+            index = Affichage.display_vue(
+                VueSelectionEquipe(self.team, disponibles),
+                len(disponibles),
+            )
+
+            if index is None:  # Échap
+                return False
+
+            personnage = disponibles.pop(index)
+            self.pick_character(personnage)
+
+        return len(self.team) == 3
     def is_team_alive(self) -> bool:
         for character in self.team:
             if character.hp > 0:
